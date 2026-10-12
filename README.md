@@ -22,9 +22,9 @@
 | 路由 | React Router 7 | 支持 `/reading/xxx` 这类地址 |
 | 样式 | 原生 CSS + CSS 变量 | 没有引入 UI 框架，方便后续改主题 |
 | 数据 | 本地示例数据文件 | 第一版不连数据库 |
-| 部署 | 静态文件 | 可直接部署到 Cloudflare Pages，免费 |
+| 部署 | Cloudflare（免费） | 构建产物是纯静态文件，通过 GitHub 自动部署，不需要服务器 |
 
-**为什么适合部署到 Cloudflare Pages**：构建产物（`dist` 文件夹）是纯静态文件，不依赖 Node 服务器、不需要买服务器或域名，Cloudflare Pages 的免费额度对社团网站足够使用。
+**为什么适合部署到 Cloudflare**：构建产物（`dist` 文件夹）是纯静态文件，不依赖 Node 服务器、不需要买服务器或域名。Cloudflare 的免费额度对社团网站足够使用，而且每次推送到 GitHub 都会自动重新部署。
 
 ---
 
@@ -35,10 +35,12 @@ SDU-Psychology-Website/
 ├─ index.html              网站入口 HTML（标题、描述在这里）
 ├─ package.json            依赖与命令清单
 ├─ vite.config.js          Vite 配置
+├─ wrangler.jsonc          Cloudflare 部署配置（不要删除）
+├─ .nvmrc                  声明构建使用的 Node 版本
 ├─ README.md               本文件
 │
 ├─ public/                 静态文件，会原样复制到构建产物里
-│  ├─ _redirects           Cloudflare Pages 的单页应用回退规则（不要删）
+│  ├─ _redirects           单页应用回退规则（兼容 Cloudflare Pages）
 │  ├─ favicon.svg          浏览器标签页图标
 │  └─ covers/              书籍封面图（SVG 占位图）
 │
@@ -179,11 +181,13 @@ npm run preview
 
 ---
 
-## 七、部署到 Cloudflare Pages（让全校同学都能访问）
+## 七、部署到 Cloudflare（让全校同学都能访问）
 
-部署之后你会得到一个类似 `https://xinxie-academic-space.pages.dev` 的公开网址，可以直接生成二维码发给同学。
+部署之后你会得到一个形如 `https://sdu-psychology-website.你的子域.workers.dev` 的公开网址，可以直接生成二维码发给同学。
 
-**推荐做法：用 GitHub + Cloudflare Pages 自动部署。** 这样做的好处是，以后你在本地改完内容，只要上传到 GitHub，网站会自动重新部署，不需要手动上传文件。
+**做法：GitHub + Cloudflare 自动部署。** 好处是以后你在本地改完内容，只要推送到 GitHub，网站会自动重新构建上线，不需要手动上传文件。
+
+> **关于 Pages 与 Workers**：Cloudflare 正在把原来的 Pages 产品合并进 Workers。新账号在控制台里可能已经找不到 Pages 入口，只能走 Workers。两者都能托管这个网站、都属于免费额度，本项目已经配好了 Workers 需要的 `wrangler.jsonc`，照着下面的步骤做即可。
 
 ### 第一步：把项目上传到 GitHub
 
@@ -193,32 +197,35 @@ npm run preview
 4. 在本项目文件夹里打开 PowerShell，依次执行（把 `你的用户名` 换成你的 GitHub 用户名）：
 
    ```powershell
-   git init
+   git init -b main
    git add .
    git commit -m "第一版网站"
-   git branch -M main
    git remote add origin https://github.com/你的用户名/SDU-Psychology-Website.git
    git push -u origin main
    ```
 
    第一次执行 `git push` 时会弹出登录窗口，按提示用浏览器授权即可。
 
-### 第二步：在 Cloudflare Pages 上连接这个仓库
+### 第二步：在 Cloudflare 上连接这个仓库
 
-1. 打开 <https://dash.cloudflare.com/>，注册 / 登录（免费）。
-2. 左侧菜单找到 **Workers & Pages** → `Create` → 选 **Pages** → `Connect to Git`。
-3. 授权 GitHub，选择刚才创建的仓库。
-4. 构建设置填：
+1. 打开 <https://dash.cloudflare.com/>，注册 / 登录（免费，不需要信用卡）。
+2. 左侧菜单点 **Compute**，进入 **Workers & Pages** 页面。
+3. 点右上角 **Create application** → **Continue with GitHub**。
+4. 授权 GitHub：选 **Only select repositories**，勾选本项目仓库，点 `Install & Authorize`。
+5. 回到 Cloudflare，选中本项目仓库，点 **Next**。
+6. 在「Set up your application」页面确认这三项：
 
    | 设置项 | 填写内容 |
    | --- | --- |
-   | Framework preset | 选 `Vite`（或 None） |
+   | Project name | `sdu-psychology-website`（必须与 `wrangler.jsonc` 里的 `name` 一致） |
    | Build command | `npm run build` |
-   | Build output directory | `dist` |
+   | Deploy command | `npx wrangler deploy`（保持默认，不要修改） |
 
-5. 点 `Save and Deploy`，等一两分钟，就会出现你的公开网址。
+7. 点 **Deploy**，等一两分钟，就会出现你的公开网址。
 
-> `public/_redirects` 这个文件已经处理好了「直接访问子页面」的问题（例如同学直接点开 `/psyche/flow` 也能正常打开），不需要额外配置。
+### 为什么需要 wrangler.jsonc
+
+`wrangler.jsonc` 告诉 Cloudflare 三件事：这个项目是纯静态网站、构建产物在 `dist` 目录、以及遇到不存在的网址时统一交给 `index.html` 处理（这样同学直接点开 `/psyche/flow` 这类子页面也能正常打开）。**不要删除这个文件**，也不要修改里面的 `name` 字段。
 
 ### 以后怎么更新内容
 
@@ -234,7 +241,7 @@ Cloudflare 检测到更新后会自动重新部署，大约一分钟后线上就
 
 ### 备用做法：直接上传文件夹
 
-如果你暂时不想用 GitHub：执行 `npm run build`，然后在 Cloudflare Pages 里选 `Upload assets`，把整个 `dist` 文件夹拖进去即可。缺点是每次更新都要手动上传。
+如果你暂时不想用 GitHub：执行 `npm run build`，然后在 Cloudflare 里选 **Upload your static files**，把 `dist` 文件夹拖进去即可。缺点是每次更新都要手动上传，而且得到的网址和自动部署的不一样。
 
 ---
 

@@ -1,0 +1,13 @@
+{
+  // Cloudflare 部署配置。
+  // 这个项目是纯静态网站：构建产物在 dist 目录，由 Cloudflare 直接对外提供。
+  // 注意：name 必须和 Cloudflare 控制台里填的 Project name 一致。
+  "name": "sdu-psychology-website",
+  "compatibility_date": "2026-10-12",
+  "assets": {
+    "directory": "./dist",
+    // 遇到不存在的网址时交给 index.html 处理，
+    // 这样同学直接打开 /psyche/flow 这类子页面也能正常显示。
+    "not_found_handling": "single-page-application"
+  }
+}
