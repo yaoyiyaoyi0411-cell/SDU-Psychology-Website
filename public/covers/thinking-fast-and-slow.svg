@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 440" width="300" height="440" role="img" aria-label="思考快与慢 封面占位图">
+  <rect width="300" height="440" fill="#E8EBE3"/>
+  <rect x="0" y="0" width="300" height="6" fill="#6D7F6B"/>
+  <circle cx="150" cy="150" r="62" fill="#6D7F6B" opacity="0.85"/>
+  <circle cx="196" cy="196" r="62" fill="#B1846A" opacity="0.55"/>
+  <text x="150" y="300" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="27" fill="#2E2B28" letter-spacing="2">思考，快与慢</text>
+  <text x="150" y="332" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#5C574F" letter-spacing="3">THINKING, FAST AND SLOW</text>
+  <line x1="105" y1="356" x2="195" y2="356" stroke="#B1846A" stroke-width="1"/>
+  <text x="150" y="382" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="14" fill="#5C574F">丹尼尔 · 卡尼曼</text>
+  <text x="150" y="410" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="10" fill="#8B857B" letter-spacing="1">封面为演示占位图</text>
+</svg>

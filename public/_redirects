@@ -1,0 +1,3 @@
+# Cloudflare Pages 单页应用（SPA）回退规则
+# 作用：用户直接访问 /psyche/affect-labeling 这类地址时，也能正确打开网站。
+/*  /index.html  200

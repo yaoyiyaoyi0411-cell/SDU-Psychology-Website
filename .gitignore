@@ -1,0 +1,30 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+dist-ssr/
+
+# 编辑器与系统文件
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# 日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 本地环境变量（未来接入 Supabase 时会用到，不要提交到仓库）
+.env
+.env.local
+.env.*.local
+
+# Cloudflare / Vite 缓存
+.wrangler/
+.vite/
+.pnpm-store/

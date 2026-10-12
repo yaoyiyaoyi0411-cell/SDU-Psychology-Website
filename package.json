@@ -1,0 +1,21 @@
+{
+  "name": "xinxie-academic-space",
+  "private": true,
+  "version": "0.1.0",
+  "description": "心协学术空间 —— 山东大学学生心理协会学术部公共网站（第一版）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.0.0"
+  }
+}

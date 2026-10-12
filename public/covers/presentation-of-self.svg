@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 440" width="300" height="440" role="img" aria-label="日常生活中的自我呈现 封面占位图">
+  <rect width="300" height="440" fill="#EFE7DF"/>
+  <rect x="0" y="0" width="300" height="6" fill="#B1846A"/>
+  <rect x="58" y="70" width="104" height="150" fill="#B1846A" opacity="0.6"/>
+  <rect x="140" y="120" width="104" height="150" fill="#6D7F6B" opacity="0.55"/>
+  <line x1="58" y1="70" x2="244" y2="70" stroke="#2E2B28" stroke-width="1" opacity="0.35"/>
+  <line x1="58" y1="270" x2="244" y2="270" stroke="#2E2B28" stroke-width="1" opacity="0.35"/>
+  <text x="150" y="320" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="22" fill="#2E2B28" letter-spacing="1">日常生活中的</text>
+  <text x="150" y="352" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="22" fill="#2E2B28" letter-spacing="1">自我呈现</text>
+  <text x="150" y="382" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#5C574F" letter-spacing="2">THE PRESENTATION OF SELF</text>
+  <text x="150" y="410" text-anchor="middle" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="13" fill="#5C574F">欧文 · 戈夫曼</text>
+</svg>
