@@ -40,7 +40,6 @@ SDU-Psychology-Website/
 ├─ README.md               本文件
 │
 ├─ public/                 静态文件，会原样复制到构建产物里
-│  ├─ _redirects           单页应用回退规则（兼容 Cloudflare Pages）
 │  ├─ favicon.svg          浏览器标签页图标
 │  └─ covers/              书籍封面图（SVG 占位图）
 │
@@ -226,6 +225,8 @@ npm run preview
 ### 为什么需要 wrangler.jsonc
 
 `wrangler.jsonc` 告诉 Cloudflare 三件事：这个项目是纯静态网站、构建产物在 `dist` 目录、以及遇到不存在的网址时统一交给 `index.html` 处理（这样同学直接点开 `/psyche/flow` 这类子页面也能正常打开）。**不要删除这个文件**，也不要修改里面的 `name` 字段。
+
+> **一个容易踩的坑**：Cloudflare 会自动处理 `.html` 和 `/index` 后缀，所以**不要**在 `public/` 目录下新建 `_redirects` 文件、写 `/* /index.html 200` 这类回退规则。那会和 Cloudflare 的自动处理互相触发，部署时报「Infinite loop detected」错误。子页面回退已经由 `wrangler.jsonc` 负责，不需要再手动配置。
 
 ### 以后怎么更新内容
 
